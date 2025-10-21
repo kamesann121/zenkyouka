@@ -1,0 +1,19 @@
+{
+  "name": "emerald-chat-game",
+  "version": "1.0.0",
+  "description": "雑学 with チャット＆ランキング - clicker + realtime chat",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "NODE_ENV=development node server.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.7.2"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}
