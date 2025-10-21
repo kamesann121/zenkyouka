@@ -1,0 +1,136 @@
+/* --- 全体 --- */
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #fff8dc;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 { font-size: 36px; margin-bottom: 10px; }
+
+/* --- ゲームエリア --- */
+.game-area { margin-bottom: 30px; }
+
+#emerald-image {
+  cursor: pointer;
+  transition: transform 0.1s;
+  width: 200px;
+}
+
+#emerald-image:active { transform: scale(0.95); }
+
+#emerald-count {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* --- ショップ --- */
+.shop-area {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.shop-area button {
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: #deb887;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.shop-area button:hover { background-color: #d2b48c; }
+.shop-area button:disabled {
+  background-color: #ccc;
+  cursor: default;
+}
+
+/* --- インベントリ --- */
+.inventory-area {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.inventory-area button {
+  padding: 8px 12px;
+  font-size: 14px;
+  background-color: #f0e68c;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.inventory-area button.active { background-color: #90ee90; }
+.inventory-area button.inactive { background-color: #f08080; }
+
+/* --- ランキング --- */
+.ranking-area {
+  max-width: 400px;
+  margin: 0 auto 30px;
+  text-align: left;
+}
+
+.ranking-area ol {
+  padding-left: 20px;
+}
+
+.ranking-area li {
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+/* --- チャット --- */
+#chat-area {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: left;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 6px;
+  background: #fafafa;
+}
+
+.messages {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.message {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.username {
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+.text {
+  word-break: break-all;
+}
+
+#chat-input {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
