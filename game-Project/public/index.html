@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>雑学 with チャット＆ランキング</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>雑学</h1>
+
+  <!-- ゲーム本体 -->
+  <div class="game-area">
+    <img id="emerald-image" src="assets/images/cookie.png" alt="エメラルド">
+    <p>エメラルド数: <span id="emerald-count">0</span></p>
+  </div>
+
+  <h2>ショップ🛒</h2>
+  <div id="shop" class="shop-area"></div>
+
+  <h2>インベントリ🎒</h2>
+  <div id="inventory" class="inventory-area"></div>
+
+  <h2>ランキング🏆</h2>
+  <div id="ranking" class="ranking-area"></div>
+
+  <h2>チャット💬</h2>
+  <div id="chat-area">
+    <div id="messages" class="messages"></div>
+    <input type="text" id="chat-input" placeholder="メッセージを入力…" autocomplete="off">
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
