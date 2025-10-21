@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>雑学 with チャット＆ランキング</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -10,25 +11,29 @@
 
   <!-- ゲーム本体 -->
   <div class="game-area">
-    <img id="emerald-image" src="assets/images/cookie.png" alt="エメラルド">
+    <img id="emerald-image" src="cookie.png" alt="エメラルド">
     <p>エメラルド数: <span id="emerald-count">0</span></p>
   </div>
 
-  <h2>ショップ🛒</h2>
+  <h2>ショップ</h2>
   <div id="shop" class="shop-area"></div>
 
-  <h2>インベントリ🎒</h2>
+  <h2>インベントリ</h2>
   <div id="inventory" class="inventory-area"></div>
 
-  <h2>ランキング🏆</h2>
+  <h2>ランキング</h2>
   <div id="ranking" class="ranking-area"></div>
 
-  <h2>チャット💬</h2>
+  <h2>チャット</h2>
   <div id="chat-area">
     <div id="messages" class="messages"></div>
     <input type="text" id="chat-input" placeholder="メッセージを入力…" autocomplete="off">
   </div>
 
+  <!-- Socket.IO クライアント（サーバーが提供） -->
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- アプリ本体スクリプト -->
   <script src="script.js"></script>
 </body>
 </html>
+```
