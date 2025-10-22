@@ -1,39 +1,55 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>雑学 with チャット＆ランキング</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>雑学</h1>
+  <div class="container">
+    <h1>雑学</h1>
 
-  <!-- ゲーム本体 -->
-  <div class="game-area">
-    <img id="emerald-image" src="cookie.png" alt="エメラルド">
-    <p>エメラルド数: <span id="emerald-count">0</span></p>
+    <div class="game-area">
+      <img id="emerald-image" src="cookie.png" alt="クッキー画像" />
+      <p>エメラルド数: <span id="emerald-count">0</span></p>
+    </div>
+
+    <h2>ショップ</h2>
+    <div id="shop" class="shop-area"></div>
+
+    <h2>インベントリ</h2>
+    <div id="inventory" class="inventory-area"></div>
+
+    <h2>ランキング</h2>
+    <div id="ranking" class="ranking-area"><ol></ol></div>
+
+    <h2>チャット</h2>
+    <div id="chat-area">
+      <div id="messages" class="messages" aria-live="polite"></div>
+
+      <div id="name-area" style="margin-bottom:8px;">
+        <input id="name-input" placeholder="名前を変更" />
+        <button id="name-change-btn">名前を変更</button>
+        <button id="random-avatar-btn">アイコンをランダム</button>
+      </div>
+
+      <form id="chat-form" action="#" onsubmit="return false;">
+        <input type="text" id="chat-input" placeholder="メッセージを入力…" autocomplete="off" required />
+        <button type="submit" id="chat-send">送信</button>
+      </form>
+    </div>
   </div>
 
-  <h2>ショップ</h2>
-  <div id="shop" class="shop-area"></div>
-
-  <h2>インベントリ</h2>
-  <div id="inventory" class="inventory-area"></div>
-
-  <h2>ランキング</h2>
-  <div id="ranking" class="ranking-area"></div>
-
-  <h2>チャット</h2>
-  <div id="chat-area">
-    <div id="messages" class="messages"></div>
-    <input type="text" id="chat-input" placeholder="メッセージを入力…" autocomplete="off">
-  </div>
-
-  <!-- Socket.IO クライアント（サーバーが提供） -->
   <script src="/socket.io/socket.io.js"></script>
-  <!-- アプリ本体スクリプト -->
-  <script src="script.js"></script>
+  <script>
+    if (!window.io) {
+      const s = document.createElement("script");
+      s.src = "https://cdn.socket.io/4.6.1/socket.io.min.js";
+      s.crossOrigin = "anonymous";
+      document.head.appendChild(s);
+    }
+  </script>
+  <script defer src="script.js"></script>
 </body>
 </html>
-```
