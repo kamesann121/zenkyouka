@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>雑学</title>
+  <title>雑学掲示板</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>雑学</h1>
+    <h1>雑学掲示板</h1>
 
     <div class="game-area">
       <img id="emerald-image" src="images/cookie.png" alt="クッキー画像" />
@@ -24,11 +24,11 @@
     <h2>ランキング</h2>
     <div id="ranking" class="ranking-area"><ol></ol></div>
 
-    <h2>交流</h2>
-    <div id="talk-root">
+    <h2>交流コーナー</h2>
+    <div id="messages-area">
       <div id="talk-messages" class="messages" aria-live="polite"></div>
 
-      <div id="name-area" style="margin-bottom:8px;">
+      <div id="name-area" style="margin:8px 0;">
         <input id="name-input" placeholder="名前を変更" />
         <button id="name-change-btn">名前を変更</button>
 
@@ -36,29 +36,23 @@
         <select id="avatar-select"></select>
       </div>
 
-      <form id="talk-form" action="#" onsubmit="return false;">
-        <input type="text" id="talk-input" placeholder="メッセージを入力…" autocomplete="off" required />
-        <button type="submit" id="talk-send">送信</button>
+      <form id="msg-form" action="#" onsubmit="return false;">
+        <input type="text" id="msg-input" placeholder="メッセージを入力…" autocomplete="off" required />
+        <button type="submit" id="msg-send">送信</button>
       </form>
     </div>
   </div>
 
-  <!-- socket loader: 'socket.io' を静的に書かないようにする -->
+  <!-- socket client loader: 動的に読み込み（まずサーバ経由の /s/socket.io.js を試し、失敗したら CDN） -->
   <script>
-    (function loadSocketIo(){
-      // 動的にパスを組み立てて読み込む（静的解析フィルタ回避に寄与）
-      const a = "sock";
-      const b = "et";
-      const c = ".io";
-      const path = "/" + a + b + c + "/" + a + b + c + ".js";
-      // ここではまずサーバ提供のパスを試す（通常 /socket.io/socket.io.js）
+    (function loadSock() {
+      const path = "/s/socket.io.js"; // サーバ側で socket.io の path を /s にしている
       const s = document.createElement("script");
       s.src = path;
       s.async = true;
       s.crossOrigin = "anonymous";
-      s.onload = () => console.log("socket loader: loaded from", path);
+      s.onload = () => console.log("socket client loaded from", path);
       s.onerror = () => {
-        // CDNフォールバック（バージョンは環境に合わせて変更してね）
         const cdn = "https://cdn.socket.io/4.6.1/socket.io.min.js";
         const s2 = document.createElement("script");
         s2.src = cdn;
@@ -68,19 +62,6 @@
       };
       document.head.appendChild(s);
     })();
-  </script>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('img').forEach(img => {
-        img.addEventListener('error', () => {
-          console.error('Image failed to load:', img.src);
-          img.style.opacity = 0.6;
-          img.title = '画像が読み込めません: ' + img.src;
-        });
-        img.addEventListener('load', () => console.log('Image loaded:', img.src));
-      });
-    });
   </script>
 
   <script defer src="script.js"></script>
