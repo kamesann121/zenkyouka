@@ -10,13 +10,8 @@
   <div class="container">
     <h1>雑学</h1>
 
-    <!-- ページ先頭に表示するバナー画像（初期表示あり） -->
-    <div id="top-banner-wrap">
-      <img id="top-banner" src="ez1izKc3TZEiHqBRrfeSg.png" alt="トップバナー" />
-    </div>
-
     <div class="game-area">
-      <img id="emerald-image" src="cookie.png" alt="クッキー画像" />
+      <img id="emerald-image" src="images/cookie.png" alt="クッキー画像" />
       <p>エメラルド数: <span id="emerald-count">0</span></p>
     </div>
 
@@ -37,7 +32,6 @@
         <input id="name-input" placeholder="名前を変更" />
         <button id="name-change-btn">名前を変更</button>
 
-        <!-- アイコン選択: public/images フォルダ内の画像名を選べるようにする -->
         <label for="avatar-select" class="avatar-select-label">アイコン変更</label>
         <select id="avatar-select"></select>
       </div>
@@ -58,6 +52,20 @@
       document.head.appendChild(s);
     }
   </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('img').forEach(img => {
+        img.addEventListener('error', () => {
+          console.error('Image failed to load:', img.src);
+          img.style.opacity = 0.6;
+          img.title = '画像が読み込めません: ' + img.src;
+        });
+        img.addEventListener('load', () => console.log('Image loaded:', img.src));
+      });
+    });
+  </script>
+
   <script defer src="script.js"></script>
 </body>
 </html>
