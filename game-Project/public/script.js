@@ -13,8 +13,6 @@
   const nameInput = document.getElementById("name-input");
   const nameChangeBtn = document.getElementById("name-change-btn");
   const avatarSelect = document.getElementById("avatar-select");
-  const topBanner = document.getElementById("top-banner");
-  const topBannerWrap = document.getElementById("top-banner-wrap");
 
   // state
   let emeralds = Number(localStorage.getItem("score") || 0);
@@ -25,14 +23,14 @@
   let playerName = localStorage.getItem("playerName") || prompt("あなたの名前を入力してください:") || "Guest";
   localStorage.setItem("playerName", playerName);
 
-  // available avatars (files should exist under public/)
+  // available avatars (files should exist under images/)
   const availableAvatars = [
-    "ez1izKc3TZEiHqBRrfeSg.png",
-    "coin-green.png",
-    "coin-blue.png",
-    "avatar1.png",
-    "avatar2.png",
-    "avatar3.png"
+    "images/ez1izKc3TZEiHqBRrfeSg.png",
+    "images/coin-green.png",
+    "images/coin-blue.png",
+    "images/avatar1.png",
+    "images/avatar2.png",
+    "images/avatar3.png"
   ];
 
   // avatar state: prefer image then color
@@ -46,15 +44,6 @@
   function escapeHtml(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
   function updateDisplay() { if (countDisplay) countDisplay.textContent = emeralds; }
   function saveScore() { localStorage.setItem("score", emeralds); if (socket) socket.emit("score_update", { score: emeralds }); }
-
-  // --- Top banner and avatar initialization and helpers ---
-  // Prefer localStorage.topBannerImage -> localStorage.avatarImage -> availableAvatars[0]
-  function setTopBannerImage(filename) {
-    if (!topBanner) return;
-    const fn = filename || localStorage.getItem("topBannerImage") || avatarImage || availableAvatars[0] || "";
-    topBanner.src = fn;
-    localStorage.setItem("topBannerImage", fn);
-  }
 
   function applyAvatarSelection(value) {
     if (!value) return;
@@ -74,18 +63,11 @@
       localStorage.setItem("avatarImage", avatarImage);
       localStorage.removeItem("avatarColor");
     }
-    // If you want to sync banner with avatar image selection, uncomment:
-    // if (avatarImage) setTopBannerImage(avatarImage);
   }
 
-  (function initBannerAndAvatar() {
-    // set avatarImage/avatarColor from localStorage if present
+  (function initAvatar() {
     avatarImage = localStorage.getItem("avatarImage") || avatarImage;
     avatarColor = localStorage.getItem("avatarColor") || avatarColor;
-    // set top banner
-    const saved = localStorage.getItem("topBannerImage");
-    if (saved) setTopBannerImage(saved);
-    else setTopBannerImage(avatarImage || availableAvatars[0]);
   })();
 
   // populate avatar select UI
@@ -108,17 +90,16 @@
     avatarSelect.appendChild(optGroupColor);
 
     const optGroupImg = document.createElement("optgroup");
-    optGroupImg.label = "画像（publicフォルダ）";
+    optGroupImg.label = "画像（images フォルダ）";
     availableAvatars.forEach(fn => {
       const o = document.createElement("option");
       o.value = `img:${fn}`;
-      o.textContent = fn;
+      o.textContent = fn.replace(/^images\//, "");
       if (avatarImage === fn) o.selected = true;
       optGroupImg.appendChild(o);
     });
     avatarSelect.appendChild(optGroupImg);
 
-    // if color selected previously, select that
     if (avatarColor && !avatarImage) {
       const v = `color:${avatarColor}`;
       for (const opt of avatarSelect.options) if (opt.value === v) opt.selected = true;
@@ -230,7 +211,6 @@
       el.style.background = "#ddd";
       return el;
     }
-    // strip prefix
     if (a.startsWith("img:")) a = a.replace("img:", "");
     if (a.startsWith("color:")) a = a.replace("color:", "");
     if (/\.(png|jpg|jpeg|gif|webp)$/i.test(a)) {
@@ -332,7 +312,6 @@
     if (!text) return;
     const lowerCmd = text.split(" ")[0].toLowerCase();
 
-    // admin commands allowed when name === "admin"
     if (playerName === "admin" && text.startsWith("/")) {
       const parts = text.split(" ").filter(p => p !== "");
       const cmd = parts[0].toLowerCase();
@@ -340,7 +319,6 @@
         if (socket) socket.emit("admin_command", { actor: "admin", cmd: { type: "ban", target: parts[1] } });
         return;
       }
-      // /bro nickname as unban
       if (cmd === "/bro" && parts[1]) {
         if (socket) socket.emit("admin_command", { actor: "admin", cmd: { type: "unban", target: parts[1] } });
         return;
@@ -410,27 +388,9 @@
       if (!v) return;
       applyAvatarSelection(v);
       appendSystemMessage("アイコンを変更しました");
-      // optionally sync banner to selected image:
-      // if (v.startsWith("img:")) setTopBannerImage(avatarImage);
     });
     populateAvatarSelect();
   }
-
-  // --- Top banner toggle with Ctrl+A ---
-  let bannerVisible = true;
-  function setBannerVisible(visible) {
-    bannerVisible = !!visible;
-    if (topBannerWrap) topBannerWrap.style.display = bannerVisible ? "block" : "none";
-  }
-  setBannerVisible(true);
-
-  document.addEventListener("keydown", e => {
-    if (e.ctrlKey && (e.key === "a" || e.key === "A")) {
-      e.preventDefault();
-      setBannerVisible(!bannerVisible);
-    }
-  });
-  window.toggleBanner = () => setBannerVisible(!bannerVisible);
 
   // expose admin helpers for console
   window._sendAdminBan = target => { if (socket) socket.emit("admin_command", { actor: "admin", cmd: { type: "ban", target } }); };
