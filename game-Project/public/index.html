@@ -3,12 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>勉強サイト</title>
+  <title>雑学 with チャット＆ランキング</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
     <h1>雑学</h1>
+
+    <!-- ページ先頭に表示するバナー画像（初期表示あり） -->
+    <div id="top-banner-wrap">
+      <img id="top-banner" src="ez1izKc3TZEiHqBRrfeSg.png" alt="トップバナー" />
+    </div>
 
     <div class="game-area">
       <img id="emerald-image" src="cookie.png" alt="クッキー画像" />
@@ -31,7 +36,10 @@
       <div id="name-area" style="margin-bottom:8px;">
         <input id="name-input" placeholder="名前を変更" />
         <button id="name-change-btn">名前を変更</button>
-        <button id="random-avatar-btn">アイコンをランダム</button>
+
+        <!-- アイコン選択: public/images フォルダ内の画像名を選べるようにする -->
+        <label for="avatar-select" class="avatar-select-label">アイコン変更</label>
+        <select id="avatar-select"></select>
       </div>
 
       <form id="chat-form" action="#" onsubmit="return false;">
