@@ -1,136 +1,127 @@
-/* --- 全体 --- */
-body {
-  font-family: "Segoe UI", sans-serif;
-  background-color: #fff8dc;
-  text-align: center;
-  margin: 0;
-  padding: 20px;
+:root{
+  --bg:#fff8dc;
+  --primary:#deb887;
+  --primary-hover:#d2b48c;
+  --muted:#ccc;
+  --accent:#90ee90;
+  --danger:#f08080;
+  --chat-bg:#fafafa;
+  --text:#222;
+  --max-width:900px;
 }
-
-h1 { font-size: 36px; margin-bottom: 10px; }
-
-/* --- ゲームエリア --- */
-.game-area { margin-bottom: 30px; }
-
-#emerald-image {
-  cursor: pointer;
-  transition: transform 0.1s;
-  width: 200px;
+*{box-sizing:border-box}
+body{
+  font-family:"Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  background-color:var(--bg);
+  color:var(--text);
+  text-align:center;
+  margin:0;
+  padding:20px;
+  line-height:1.4;
 }
-
-#emerald-image:active { transform: scale(0.95); }
-
-#emerald-count {
-  font-size: 24px;
-  font-weight: bold;
-  margin-top: 10px;
+h1{font-size:2.25rem;margin-bottom:10px}
+h2{margin-top:24px;margin-bottom:8px}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 16px}
+.game-area{margin-bottom:30px}
+#emerald-image{
+  cursor:pointer;
+  transition:transform .1s ease, filter .15s ease;
+  width:200px;
+  height:auto;
+  display:block;
+  margin:0 auto;
 }
-
-/* --- ショップ --- */
-.shop-area {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 20px;
+#emerald-image:active{transform:scale(.95)}
+#emerald-count{display:block;font-size:1.25rem;font-weight:700;margin-top:10px}
+.shop-area{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  margin-top:20px;
 }
-
-.shop-area button {
-  padding: 10px 15px;
-  font-size: 16px;
-  background-color: #deb887;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s;
+.shop-area button{
+  padding:10px 15px;
+  font-size:1rem;
+  background-color:var(--primary);
+  color:var(--text);
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  transition:background-color .2s;
 }
-
-.shop-area button:hover { background-color: #d2b48c; }
-.shop-area button:disabled {
-  background-color: #ccc;
-  cursor: default;
+.shop-area button:hover{background-color:var(--primary-hover)}
+.shop-area button:disabled{background-color:var(--muted);cursor:default;opacity:.9}
+.inventory-area{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  margin-top:20px;
 }
-
-/* --- インベントリ --- */
-.inventory-area {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 20px;
+.inventory-area button{
+  padding:8px 12px;
+  font-size:.95rem;
+  background-color:#f0e68c;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  transition:background-color .2s, transform .08s;
 }
-
-.inventory-area button {
-  padding: 8px 12px;
-  font-size: 14px;
-  background-color: #f0e68c;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.2s;
+.inventory-area button:active{transform:translateY(1px)}
+.inventory-area button.active{background-color:var(--accent)}
+.inventory-area button.inactive{background-color:var(--danger)}
+.ranking-area{
+  max-width:400px;
+  margin:0 auto 30px;
+  text-align:left;
 }
-
-.inventory-area button.active { background-color: #90ee90; }
-.inventory-area button.inactive { background-color: #f08080; }
-
-/* --- ランキング --- */
-.ranking-area {
-  max-width: 400px;
-  margin: 0 auto 30px;
-  text-align: left;
+.ranking-area ol{padding-left:20px;margin:0}
+.ranking-area li{margin-bottom:6px;font-size:1rem}
+#chat-area{
+  max-width:600px;
+  margin:0 auto;
+  text-align:left;
+  border:1px solid #ccc;
+  padding:10px;
+  border-radius:6px;
+  background:var(--chat-bg);
 }
-
-.ranking-area ol {
-  padding-left: 20px;
+.messages{
+  max-height:300px;
+  overflow-y:auto;
+  margin-bottom:10px;
+  padding-right:6px;
 }
-
-.ranking-area li {
-  margin-bottom: 5px;
-  font-size: 16px;
+.message{
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  margin-bottom:8px;
+  word-break:break-word;
 }
-
-/* --- チャット --- */
-#chat-area {
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: left;
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 6px;
-  background: #fafafa;
+.message.system .username{color:#666;font-weight:700}
+.message.system .text{color:#444;font-style:italic}
+.avatar{
+  width:32px;height:32px;border-radius:50%;background:#ddd;flex:0 0 32px
 }
-
-.messages {
-  max-height: 300px;
-  overflow-y: auto;
-  margin-bottom: 10px;
+.username{font-weight:700;margin-right:6px}
+.text{flex:1}
+#chat-form{display:flex;gap:8px;align-items:center}
+#chat-input{
+  flex:1;padding:8px 10px;font-size:14px;border:1px solid #ccc;border-radius:6px;
+  outline-offset:2px;
 }
-
-.message {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 8px;
+#chat-input:focus{box-shadow:0 0 0 3px rgba(0,0,0,0.05);border-color:#999}
+#chat-send{
+  padding:8px 12px;font-size:14px;border-radius:6px;border:none;background:var(--primary);cursor:pointer;
 }
-
-.avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  margin-right: 8px;
-}
-
-.username {
-  font-weight: bold;
-  margin-right: 6px;
-}
-
-.text {
-  word-break: break-all;
-}
-
-#chat-input {
-  width: 100%;
-  padding: 8px;
-  font-size: 14px;
-  box-sizing: border-box;
+#chat-send:hover{background:var(--primary-hover)}
+#chat-send:disabled{background:var(--muted);cursor:default;opacity:.85}
+button:focus, input:focus{outline:3px solid rgba(0,123,255,0.15);outline-offset:2px}
+@media (max-width:480px){
+  #emerald-image{width:140px}
+  .shop-area button{font-size:.9rem;padding:8px 10px}
+  #chat-area{padding:8px}
+  .messages{max-height:220px}
 }
